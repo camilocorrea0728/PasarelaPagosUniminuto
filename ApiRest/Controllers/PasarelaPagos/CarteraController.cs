@@ -12,7 +12,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
         private NLog.Logger _logger;
         private readonly string _IdLog;
         private DataAccess.Data.PasarelaPagos.Cartera ObjMetodo;
-        private List<CarteraDto> ObjRespuestaList;
+        private List<VistaCarteraDto> ObjRespuestaList;
         private DataAccess.Respuesta ObjRespuestaDML;
         public CarteraController()
         {
@@ -23,7 +23,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
 
         // GET  Cartera/TraerCarteras
         [HttpGet("TraerCarteras")]
-        public List<CarteraDto> TraerCarteras()
+        public List<VistaCarteraDto> TraerCarteras()
         {
             try
             {
@@ -38,7 +38,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
 
         // GET  Cartera/TraerCarterasPorIdCartera/123456
         [HttpGet("TraerCarterasPorIdCartera/{IdCartera}")]
-        public List<CarteraDto> TraerCarterasPorIdCartera(int IdCartera)
+        public List<VistaCarteraDto> TraerCarterasPorIdCartera(int IdCartera)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
 
         // GET  Cartera/TraerCarterasPorIdComercio/123456
         [HttpGet("TraerCarterasPorIdComercio/{IdComercio}")]
-        public List<CarteraDto> TraerCarterasPorIdComercio(int IdComercio)
+        public List<VistaCarteraDto> TraerCarterasPorIdComercio(int IdComercio)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
 
         // GET  Cartera/TraerCarterasPorIdCliente/123456
         [HttpGet("TraerCarterasPorIdCliente/{IdCliente}")]
-        public List<CarteraDto> TraerCarterasPorIdCliente(int IdCliente)
+        public List<VistaCarteraDto> TraerCarterasPorIdCliente(int IdCliente)
         {
             try
             {
@@ -81,9 +81,24 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
             return ObjRespuestaList;
         }
 
+        // GET  Cartera/TraerCarterasPorIdCliente/123456
+        [HttpGet("TraerCarterasPorIdentificacionCliente/{IdentificacionCliente}")]
+        public List<VistaCarteraDto> TraerCarterasPorIdentificacionCliente(string IdentificacionCliente)
+        {
+            try
+            {
+                ObjRespuestaList = ObjMetodo.TraerCarterasPorIdentificacionCliente(IdentificacionCliente);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Excepción en el controlador TraerCarterasPorIdentificacionCliente: {ex.Message}");
+            }
+            return ObjRespuestaList;
+        }
+
         // GET  Cartera/TraerCarterasHabilesPorIdCliente/123456
         [HttpGet("TraerCarterasHabilesPorIdCliente/{IdCliente}")]
-        public List<CarteraDto> TraerCarterasHabilesPorIdCliente(int IdCliente)
+        public List<VistaCarteraDto> TraerCarterasHabilesPorIdCliente(int IdCliente)
         {
             try
             {
@@ -98,7 +113,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
 
         // GET  Cartera/TraerCarterasPendientesPorIdCliente/123456
         [HttpGet("TraerCarterasPendientesPorIdCliente/{IdCliente}")]
-        public List<CarteraDto> TraerCarterasPendientesPorIdCliente(int IdCliente)
+        public List<VistaCarteraDto> TraerCarterasPendientesPorIdCliente(int IdCliente)
         {
             try
             {
@@ -132,7 +147,7 @@ namespace ApiRest.Controllers.PasarelaPagos.Cartera
         {
             try
             {
-                ObjRespuestaDML = ObjMetodo.ActualizarCartera(ObjActualizar);
+                ObjRespuestaDML = ObjMetodo.ActualizarCartera(IdCartera, ObjActualizar);
             }
             catch (Exception ex)
             {

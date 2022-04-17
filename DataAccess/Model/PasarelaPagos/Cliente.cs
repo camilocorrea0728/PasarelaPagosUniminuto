@@ -20,6 +20,7 @@ namespace DataAccess.Model.PasarelaPagos
         public string Direccion { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public DateTime? FechaCreacion { get; set; }
+        public string IdentificacionCliente { get; set; }
 
         public virtual ICollection<Cartera> Carteras { get; set; }
     }

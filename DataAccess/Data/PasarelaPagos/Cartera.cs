@@ -17,19 +17,21 @@ namespace DataAccess.Data.PasarelaPagos
             _logger = logger;
             _IdLog = idLog;
         }
-        public List<CarteraDto> TraerCarteras()
+        public List<VistaCarteraDto> TraerCarteras()
         {
             _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera:");
             try
             {
-                var objReturnTable = _context.Carteras.ToList();
-                List<CarteraDto> ObjGetData = new();
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.ToList();
+                List<VistaCarteraDto> ObjGetData = new();
                 foreach (var Data in objReturnTable)
                 {
-                    CarteraDto ObjItem = (new CarteraDto {
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
+                    {
                         IdCartera = Data.IdCartera,
                         IdComercio = Data.IdComercio,
                         IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
                         Descripcion = Data.Descripcion,
                         FechaInicio = Data.FechaInicio,
                         FechaFin = Data.FechaFin,
@@ -47,20 +49,21 @@ namespace DataAccess.Data.PasarelaPagos
                 return null;
             }
         }
-        public List<CarteraDto> TraerCarterasPorIdCartera(int IdCartera)
+        public List<VistaCarteraDto> TraerCarterasPorIdCartera(int IdCartera)
         {
             _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera por IdCartera:" + IdCartera);
             try
             {
-                var objReturnTable = _context.Carteras.Where(x => x.IdCartera== IdCartera).ToList();
-                List<CarteraDto> ObjGetData = new();
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.Where(x => x.IdCartera== IdCartera).ToList();
+                List<VistaCarteraDto> ObjGetData = new();
                 foreach (var Data in objReturnTable)
                 {
-                    CarteraDto ObjItem = (new CarteraDto
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
                     {
                         IdCartera = Data.IdCartera,
                         IdComercio = Data.IdComercio,
                         IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
                         Descripcion = Data.Descripcion,
                         FechaInicio = Data.FechaInicio,
                         FechaFin = Data.FechaFin,
@@ -78,20 +81,21 @@ namespace DataAccess.Data.PasarelaPagos
                 return null;
             }
         }
-        public List<CarteraDto> TraerCarterasPorIdComercio(int IdComercio)
+        public List<VistaCarteraDto> TraerCarterasPorIdComercio(int IdComercio)
         {
             _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera por IdComercio:" + IdComercio);
             try
             {
-                var objReturnTable = _context.Carteras.Where(x => x.IdComercio == IdComercio).ToList();
-                List<CarteraDto> ObjGetData = new();
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.Where(x => x.IdComercio == IdComercio).ToList();
+                List<VistaCarteraDto> ObjGetData = new();
                 foreach (var Data in objReturnTable)
                 {
-                    CarteraDto ObjItem = (new CarteraDto
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
                     {
                         IdCartera = Data.IdCartera,
                         IdComercio = Data.IdComercio,
                         IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
                         Descripcion = Data.Descripcion,
                         FechaInicio = Data.FechaInicio,
                         FechaFin = Data.FechaFin,
@@ -109,20 +113,21 @@ namespace DataAccess.Data.PasarelaPagos
                 return null;
             }
         }
-        public List<CarteraDto> TraerCarterasPorIdCliente(int IdCliente)
+        public List<VistaCarteraDto> TraerCarterasPorIdCliente(int IdCliente)
         {
             _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera por IdCliente:" + IdCliente);
             try
             {
-                var objReturnTable = _context.Carteras.Where(x => x.IdCliente == IdCliente).ToList();
-                List<CarteraDto> ObjGetData = new();
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.Where(x => x.IdCliente == IdCliente).ToList();
+                List<VistaCarteraDto> ObjGetData = new();
                 foreach (var Data in objReturnTable)
                 {
-                    CarteraDto ObjItem = (new CarteraDto
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
                     {
                         IdCartera = Data.IdCartera,
                         IdComercio = Data.IdComercio,
                         IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
                         Descripcion = Data.Descripcion,
                         FechaInicio = Data.FechaInicio,
                         FechaFin = Data.FechaFin,
@@ -140,20 +145,54 @@ namespace DataAccess.Data.PasarelaPagos
                 return null;
             }
         }
-        public List<CarteraDto> TraerCarterasHabilesPorIdCliente(int IdCliente)
+
+        public List<VistaCarteraDto> TraerCarterasPorIdentificacionCliente(string IdentificacionCliente)
         {
-            _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera habiles por IdCliente:" + IdCliente);
+            _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera por IdentificacionCliente:" + IdentificacionCliente);
             try
             {
-                var objReturnTable = _context.Carteras.Where(x => x.IdCliente == IdCliente && x.FechaFin<DateTime.Now && x.FechaFin>DateTime.Now).ToList();
-                List<CarteraDto> ObjGetData = new();
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.Where(x => x.IdentificacionCliente == IdentificacionCliente).ToList();
+                List<VistaCarteraDto> ObjGetData = new();
                 foreach (var Data in objReturnTable)
                 {
-                    CarteraDto ObjItem = (new CarteraDto
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
                     {
                         IdCartera = Data.IdCartera,
                         IdComercio = Data.IdComercio,
                         IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
+                        Descripcion = Data.Descripcion,
+                        FechaInicio = Data.FechaInicio,
+                        FechaFin = Data.FechaFin,
+                        Valor = Data.Valor,
+                        FechaCreacion = Data.FechaCreacion
+                    });
+
+                    ObjGetData.Add(ObjItem);
+                }
+                return ObjGetData;
+            }
+            catch (Exception ex)
+            {
+                _logger.Debug(_IdLog + "TraerCarterasPorIdCliente Exception " + ex.Message);
+                return null;
+            }
+        }
+        public List<VistaCarteraDto> TraerCarterasHabilesPorIdCliente(int IdCliente)
+        {
+            _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera habiles por IdCliente:" + IdCliente);
+            try
+            {
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.Where(x => x.IdCliente == IdCliente && x.FechaFin<DateTime.Now && x.FechaFin>DateTime.Now).ToList();
+                List<VistaCarteraDto> ObjGetData = new();
+                foreach (var Data in objReturnTable)
+                {
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
+                    {
+                        IdCartera = Data.IdCartera,
+                        IdComercio = Data.IdComercio,
+                        IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
                         Descripcion = Data.Descripcion,
                         FechaInicio = Data.FechaInicio,
                         FechaFin = Data.FechaFin,
@@ -171,24 +210,25 @@ namespace DataAccess.Data.PasarelaPagos
                 return null;
             }
         }
-        public List<CarteraDto> TraerCarterasPendientesPorIdCliente(int IdCliente)
+        public List<VistaCarteraDto> TraerCarterasPendientesPorIdCliente(int IdCliente)
         {
             _logger.Debug(_IdLog + "Se van a obtener todos datos en la tabla Cartera pendientes por pago por IdCliente:" + IdCliente);
             try
             {
-                var objReturnTable = _context.Carteras.Where(x => x.IdCliente == IdCliente 
+                var objReturnTable = _context.VistaCarterasPorIdentificacionClientes.Where(x => x.IdCliente == IdCliente 
                     && x.FechaFin < DateTime.Now 
                     && x.FechaFin > DateTime.Now
                     )
                     .ToList();
-                List<CarteraDto> ObjGetData = new();
+                List<VistaCarteraDto> ObjGetData = new();
                 foreach (var Data in objReturnTable)
                 {
-                    CarteraDto ObjItem = (new CarteraDto
+                    VistaCarteraDto ObjItem = (new VistaCarteraDto
                     {
                         IdCartera = Data.IdCartera,
                         IdComercio = Data.IdComercio,
                         IdCliente = Data.IdCliente,
+                        IdentificacionCliente = Data.IdentificacionCliente,
                         Descripcion = Data.Descripcion,
                         FechaInicio = Data.FechaInicio,
                         FechaFin = Data.FechaFin,
@@ -211,7 +251,6 @@ namespace DataAccess.Data.PasarelaPagos
             Respuesta objReturn = new Respuesta();
             try
             {
-                ObjInsertar.FechaCreacion = DateTime.Now;
                 string objRequestLog = JsonConvert.SerializeObject(ObjInsertar, Formatting.Indented);
                 _logger.Debug("--------------------------------------------------------------------");
                 _logger.Debug(_IdLog + "Se va a insertar datos en la tabla Cartera: " + objRequestLog);
@@ -225,8 +264,8 @@ namespace DataAccess.Data.PasarelaPagos
                         FechaInicio = ObjInsertar.FechaInicio,
                         FechaFin = ObjInsertar.FechaFin,
                         Valor = ObjInsertar.Valor,
-                        FechaCreacion = ObjInsertar.FechaCreacion
-                    };
+                        FechaCreacion = DateTime.Now
+                };
 
                     _context.Carteras.Add(ObjCartera);
                     _context.SaveChanges();
@@ -253,7 +292,7 @@ namespace DataAccess.Data.PasarelaPagos
                 return objReturn.SeleccionarRespuesta(99);
             }
         }
-        public Respuesta ActualizarCartera(CarteraDto ObjActualizar)
+        public Respuesta ActualizarCartera(int IdCartera,CarteraDto ObjActualizar)
         {
             Respuesta objReturn = new Respuesta();
             try
@@ -263,23 +302,22 @@ namespace DataAccess.Data.PasarelaPagos
                 _logger.Debug(_IdLog + "Se va a actualizar datos en la tabla Cartera: " + objRequestLog);
                 try
                 {
-                    if (ObjActualizar.IdCartera > 0)
+                    if (IdCartera > 0)
                     {
-                        var ObjCarteraBd = _context.Carteras.Find(ObjActualizar.IdCartera);
+                        var ObjCarteraBd = _context.Carteras.Find(IdCartera);
 
                         string JsonCarteraBd = JsonConvert.SerializeObject(ObjCarteraBd, Formatting.Indented);
 
                         _logger.Debug(_IdLog + "DATOS ANTERIORES" + Environment.NewLine + JsonCarteraBd);
 
-                        ObjCarteraBd = (new Model.PasarelaPagos.Cartera
-                        {
-                            IdComercio = (ObjActualizar.IdComercio>0 && ObjActualizar.IdComercio != ObjCarteraBd.IdComercio) ? ObjActualizar.IdComercio : ObjCarteraBd.IdComercio,
-                            IdCliente = (ObjActualizar.IdCliente > 0 && ObjActualizar.IdCliente != ObjCarteraBd.IdCliente) ? ObjActualizar.IdCliente : ObjCarteraBd.IdCliente,
-                            Descripcion = ( !String.IsNullOrEmpty(ObjActualizar.Descripcion) && ObjActualizar.Descripcion != ObjCarteraBd.Descripcion) ? ObjActualizar.Descripcion : ObjCarteraBd.Descripcion,
-                            FechaInicio = (ObjActualizar.FechaInicio != DateTime.MinValue && ObjActualizar.FechaInicio != ObjCarteraBd.FechaInicio) ? ObjActualizar.FechaInicio : ObjCarteraBd.FechaInicio,
-                            FechaFin = (ObjActualizar.FechaFin != DateTime.MinValue && ObjActualizar.FechaFin != ObjCarteraBd.FechaFin) ? ObjActualizar.FechaFin : ObjCarteraBd.FechaFin,
-                            Valor = (ObjActualizar.Valor > 0 && ObjActualizar.Valor != ObjCarteraBd.Valor) ? ObjActualizar.Valor : ObjCarteraBd.Valor,
-                        });
+
+                        ObjCarteraBd.IdComercio = (ObjActualizar.IdComercio != null && ObjActualizar.IdComercio > 0 && ObjActualizar.IdComercio != ObjCarteraBd.IdComercio) ? ObjActualizar.IdComercio : ObjCarteraBd.IdComercio;
+                        ObjCarteraBd.IdCliente = (ObjActualizar.IdCliente != null && ObjActualizar.IdCliente > 0 && ObjActualizar.IdCliente != ObjCarteraBd.IdCliente) ? ObjActualizar.IdCliente : ObjCarteraBd.IdCliente;
+                        ObjCarteraBd.Descripcion = (!String.IsNullOrEmpty(ObjActualizar.Descripcion) && ObjActualizar.Descripcion != ObjCarteraBd.Descripcion) ? ObjActualizar.Descripcion : ObjCarteraBd.Descripcion;
+                        ObjCarteraBd.FechaInicio = (ObjActualizar.FechaInicio != null && ObjActualizar.FechaInicio != ObjCarteraBd.FechaInicio) ? ObjActualizar.FechaInicio : ObjCarteraBd.FechaInicio;
+                        ObjCarteraBd.FechaFin = (ObjActualizar.FechaFin != null && ObjActualizar.FechaFin != ObjCarteraBd.FechaFin) ? ObjActualizar.FechaFin : ObjCarteraBd.FechaFin;
+                        ObjCarteraBd.Valor = (ObjActualizar.Valor != null && ObjActualizar.Valor > 0 && ObjActualizar.Valor != ObjCarteraBd.Valor) ? ObjActualizar.Valor : ObjCarteraBd.Valor;
+
                         _logger.Debug("---------------------------------------------");
                         JsonCarteraBd = JsonConvert.SerializeObject(ObjCarteraBd, Formatting.Indented);
 
@@ -298,19 +336,19 @@ namespace DataAccess.Data.PasarelaPagos
                             }
                             else
                             {
-                                _logger.Debug(_IdLog + "No se actualizó correctamente el IdCartera " + ObjActualizar.IdCartera);
+                                _logger.Debug(_IdLog + "No se actualizó correctamente el IdCartera " + IdCartera);
                                 return objReturn.SeleccionarRespuesta(99);
                             }
                         }
                         catch (Exception ex)
                         {
-                            _logger.Debug(_IdLog + "No se actualizó correctamente el IdCartera " + ObjActualizar.IdCartera + " Exception: " + ex.Message);
+                            _logger.Debug(_IdLog + "No se actualizó correctamente el IdCartera " + IdCartera + " Exception: " + ex.Message);
                             return objReturn.SeleccionarRespuesta(99);
                         }
                     }
                     else
                     {
-                        _logger.Debug(_IdLog + "No se encontro el IdCartera " + ObjActualizar.IdCartera + " en la tabla Cartera, no se pueden actualizar datos.");
+                        _logger.Debug(_IdLog + "No se encontro el IdCartera " + IdCartera + " en la tabla Cartera, no se pueden actualizar datos.");
                         _logger.Debug("--------------------------------------------------------------------");
                         return objReturn.SeleccionarRespuesta(99);
                     }
@@ -384,9 +422,20 @@ namespace DataAccess.Data.PasarelaPagos
 {
     public class CarteraDto
     {
+        public int? IdComercio { get; set; }
+        public int? IdCliente { get; set; }
+        public string Descripcion { get; set; }
+        public DateTime? FechaInicio { get; set; }
+        public DateTime? FechaFin { get; set; }
+        public decimal? Valor { get; set; }
+    }
+
+    public class VistaCarteraDto
+    {
         public int IdCartera { get; set; }
         public int? IdComercio { get; set; }
         public int? IdCliente { get; set; }
+        public string IdentificacionCliente { get; set; }
         public string Descripcion { get; set; }
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }

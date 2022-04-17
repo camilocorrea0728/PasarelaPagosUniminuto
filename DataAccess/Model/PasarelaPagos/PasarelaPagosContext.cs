@@ -26,6 +26,7 @@ namespace DataAccess.Model.PasarelaPagos
         public virtual DbSet<Franquicia> Franquicias { get; set; }
         public virtual DbSet<Transaccione> Transacciones { get; set; }
         public virtual DbSet<VistaCarterasPendientesPorPago> VistaCarterasPendientesPorPagos { get; set; }
+        public virtual DbSet<VistaCarterasPorIdentificacionCliente> VistaCarterasPorIdentificacionClientes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -122,6 +123,10 @@ namespace DataAccess.Model.PasarelaPagos
 
                 entity.Property(e => e.Genero)
                     .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdentificacionCliente)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.NombresCliente)
@@ -256,6 +261,29 @@ namespace DataAccess.Model.PasarelaPagos
                 entity.Property(e => e.FechaFin).HasColumnType("date");
 
                 entity.Property(e => e.FechaInicio).HasColumnType("date");
+
+                entity.Property(e => e.Valor).HasColumnType("numeric(18, 0)");
+            });
+
+            modelBuilder.Entity<VistaCarterasPorIdentificacionCliente>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Vista_CarterasPorIdentificacionCliente");
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaFin).HasColumnType("date");
+
+                entity.Property(e => e.FechaInicio).HasColumnType("date");
+
+                entity.Property(e => e.IdentificacionCliente)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Valor).HasColumnType("numeric(18, 0)");
             });
